@@ -97,7 +97,7 @@ def breaking_high(bars, ret_high=False):
 		if bar.close > high:
 			high = bar.close
 			seen_bearish = False
-		seen_bearish = seen_bearish or sbeb([bar])
+		seen_bearish = seen_bearish or consec_bear([bar], 1)
 
 	bu_break = consec_bull(bars, 1) and bars[-1].close > high
 
@@ -131,7 +131,7 @@ def breaking_low(bars, ret_low=False):
 		if bar.close < low:
 			low = bar.close
 			seen_bullish = False
-		seen_bullish = seen_bullish or sbub([bar])
+		seen_bullish = seen_bullish or consec_bull([bar], 1)
 
 	be_break = consec_bear(bars, 1) and bars[-1].close < low
 
@@ -143,7 +143,7 @@ def breaking_low(bars, ret_low=False):
 	return retval
 
 def breaking_low_pull(bars, pull_count):
-	brk, low = breaking_low(bars, ret_high=True)
+	brk, low = breaking_low(bars, ret_low=True)
 	if pull_count > 0:
 		pullback = consec_bull(bars, pull_count) and bars[-1].close < low
 	else:
@@ -157,16 +157,3 @@ funcs_list = [no_struct,
 				engulfing_bear,
 				bottom_pin,
 				top_pin]
-
-for i in range(1,6):
-	funcs_list.append(lambda bars: consec_bull(bars, i))
-	funcs_list.append(lambda bars: consec_bear(bars, i))
-
-for i in range(1,6):
-	for j in range(1,6):
-		funcs_list.append(lambda bars: consec_bull_bear(bars, i, j))
-		funcs_list.append(lambda bars: consec_bear_bull(bars, i, j))
-
-for i in range(1,5):
-	funcs_list.append(lambda bars: breaking_high_pull(bars, i))
-	funcs_list.append(lambda bars: breaking_low_pull(bars, i))

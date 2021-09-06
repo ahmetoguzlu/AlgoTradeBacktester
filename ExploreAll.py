@@ -32,12 +32,15 @@ tfs = [mt5.TIMEFRAME_D1,
 
 all_results = []
 counter = 0
+buy_sell_range = range(2)
+wait_range = range(2,4)
 # 0 for buy, 1 for sell
-for i in range(2):
+for i in buy_sell_range:
 	for struct in structs.funcs_list:
 		for tf in tfs:
-			for wait_count in range(2,4):
-				print("Progress:", counter / (2*3*len(structs.funcs_list)))
+			for wait_count in wait_range:
+				print("Progress:", counter / 
+					(len(buy_sell_range)*len(structs.funcs_list)*len(tfs)*len(wait_range)))
 				counter += 1
 
 				tf_to_struct = {tf: [None, None]}

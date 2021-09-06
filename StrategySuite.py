@@ -41,7 +41,8 @@ class Strategy:
 
 
 	"""
-	Called on each new bar
+	Called on each new bar. Most of the 
+	work done by strategy goes here
 	"""
 	def on_new_bar(self, new_tfs):
 		pass
